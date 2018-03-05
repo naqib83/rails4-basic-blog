@@ -1,0 +1,35 @@
+<h1 align="center">Listing All Categories</h1>
+
+<div class="row">
+  <div class="col-xs-12">
+    <%= will_paginate %>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Category name</th>
+        <th>Number of article</th>
+        <th>Created at</th>
+        <th>Action </th>
+      </tr>
+
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.id %></td>
+          <td><%= link_to "#{category.name}", category_path(category) %></td>
+          <td><%= pluralize(category.articles.count, 'article') %> </td>
+          <td><%= time_ago_in_words(category.created_at) %> ago</td>
+          <td>
+            <%= link_to 'Show', category_path(category), class:"btn btn-success btn-xs" %>
+            <% if logged_in? and current_user.admin? %>
+              | <%= link_to 'Edit', edit_category_path(category), class:"btn btn-primary btn-xs" %>
+              | <%= link_to 'Delete', category_path(category), method: :delete,
+                            class:"btn btn-danger btn-xs", method: :delete,
+                            data:{confirm:"Are you sure to delete this category?"} %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+    <%= will_paginate %>
+  </div>
+</div>

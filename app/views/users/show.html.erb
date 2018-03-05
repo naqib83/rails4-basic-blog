@@ -1,0 +1,10 @@
+<h1>Welcome to <%= @user.username %>'s page</h1>
+
+<h2>Your list of articles</h2>
+<div align="center">
+  <%= will_paginate @user_articles %>
+</div>
+<%= render 'articles/article', obj: @user_articles %>
+<div align="center">
+  <%= will_paginate @user_articles %>
+</div>
